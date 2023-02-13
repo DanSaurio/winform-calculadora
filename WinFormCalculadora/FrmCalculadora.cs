@@ -18,6 +18,7 @@ namespace WinFormCalculadora
 
         string operador = "";
         //opoerandos
+        int pointCounter = 0;
         private double _op1 = 0;
         private double _op2 = 0;
         public FrmCalculadora()
@@ -25,6 +26,11 @@ namespace WinFormCalculadora
             InitializeComponent();
         }
 
+        private void limpiadorDeTexto()
+        {
+            this.pointCounter= 0;
+            this.operador = "";
+        }
         private void btnSuma_Click(object sender, EventArgs e)
         {
             //activar una bandera
@@ -33,51 +39,79 @@ namespace WinFormCalculadora
             this._op1 = double.Parse(txtDisplay.Text);
             //limpiar el display
             txtDisplay.Clear();
+            this.pointCounter = 0;
         }
 
         private void btn1_Click(object sender, EventArgs e)
         {
+            if (txtDisplay.Text =="0")
+                txtDisplay.Text = "1";
+            else
             txtDisplay.Text += "1"; 
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "2";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "2";
+            else
+                txtDisplay.Text += "2";
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "3";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "3";
+            else
+                txtDisplay.Text += "3";
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "4";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "4";
+            else
+                txtDisplay.Text += "4";
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "5";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "5";
+            else
+                txtDisplay.Text += "5";
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "6";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "6";
+            else
+                txtDisplay.Text += "6";
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "7";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "7";
+            else
+                txtDisplay.Text += "7";
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "8";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "8";
+            else
+                txtDisplay.Text += "8";
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "9";
+            if (txtDisplay.Text == "0")
+                txtDisplay.Text = "9";
+            else
+                txtDisplay.Text += "9";
         }
 
         private void btnIgual_Click(object sender, EventArgs e)
@@ -96,6 +130,9 @@ namespace WinFormCalculadora
                 case "*":
                     oper = new Multiplicacion(this._op1, this._op2);
                     break;
+                //case "Raiz":
+                //    oper = new Raiz(this._op1, this._op2);
+                //    break;
                 case "/":
                     oper = new Division(this._op1, this._op2);
                     break;
@@ -109,6 +146,8 @@ namespace WinFormCalculadora
 
             //limpiar la operador =
             this.operador = "";
+            //reseteamos el contador del punto
+            this.pointCounter= 0;
         }
 
         private void btnResta_Click(object sender, EventArgs e)
@@ -119,6 +158,7 @@ namespace WinFormCalculadora
             this._op1 = double.Parse(txtDisplay.Text);
             //limpiar el display
             txtDisplay.Clear();
+            this.pointCounter = 0;
         }
 
         private void btn0_Click(object sender, EventArgs e)
@@ -129,7 +169,12 @@ namespace WinFormCalculadora
         private void btnPunto_Click(object sender, EventArgs e)
         {
             //agregamos el punto 
-            txtDisplay.Text += ".";
+            if (this.pointCounter == 0)
+            {
+                txtDisplay.Text+=".";
+            }
+            this.pointCounter++;
+           
         }
 
         private void btnSigno_Click(object sender, EventArgs e)
@@ -142,6 +187,26 @@ namespace WinFormCalculadora
         {
             //limpiamos
             txtDisplay.Text = "0";
+            this.operador= "";
+            this.pointCounter = 0;
+        }
+
+        private void btnDivision_Click(object sender, EventArgs e)
+        {
+            this.pointCounter = 0;
+        }
+
+        private void btnMultiplicacion_Click(object sender, EventArgs e)
+        {
+            this.pointCounter = 0;
+        }
+
+        private void btnRaiz_Click(object sender, EventArgs e)
+        {
+            this._op1 = double.Parse(txtDisplay.Text);
+            oper = new Raiz(this._op1);
+            txtDisplay.Text = oper.ejecutar().ToString();
+            this.pointCounter = 0;
         }
     }
 }
